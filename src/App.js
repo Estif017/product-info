@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import { useSelector } from 'react-redux';
 import './App.css';
+import Categories from './components/Categories';
+import { selectedProduct } from './redux/products/reducer';
+import Products from './components/Products';
+import { useState } from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const selected = useSelector(selectedProduct);
+	const [display, setDisplay] = useState(false);
+	return (
+		<div className='App'>
+			<header>
+				<button onClick={() => setDisplay(!display)} className='btn-display'>
+					Get Data
+				</button>
+			</header>
+			<div className='container' style={{ display: display ? 'flex' : 'none' }}>
+				<Categories />
+				{selected && <Products />}
+			</div>
+		</div>
+	);
 }
 
 export default App;
